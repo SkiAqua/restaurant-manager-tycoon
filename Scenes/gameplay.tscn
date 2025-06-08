@@ -1,3 +1,40 @@
-[gd_scene format=3 uid="uid://bkhc6lyj28x05"]
+[gd_scene load_steps=7 format=3 uid="uid://bkhc6lyj28x05"]
+
+[ext_resource type="PackedScene" uid="uid://ccx185dyicsix" path="res://Scenes/PlayerCharacter.tscn" id="1_hf1ha"]
+[ext_resource type="Texture2D" uid="uid://bqgmxn5gjw153" path="res://Assets/TouchScreen/analogBG.png" id="2_wbxth"]
+[ext_resource type="Script" uid="uid://c5sru7oxluxy7" path="res://Script/VirtualAnalog.cs" id="3_m34ki"]
+[ext_resource type="Texture2D" uid="uid://bkvqsaoglk5x5" path="res://Assets/TouchScreen/analogFG.png" id="4_kwrm5"]
+
+[sub_resource type="Gradient" id="Gradient_m34ki"]
+interpolation_mode = 1
+colors = PackedColorArray(0.254902, 0.431373, 0.509804, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kwrm5"]
+gradient = SubResource("Gradient_m34ki")
 
 [node name="Scene" type="Node2D"]
+
+[node name="GameplayLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="GameplayLayer"]
+offset_top = 6.0
+offset_right = 1080.0
+offset_bottom = 1926.0
+texture = SubResource("GradientTexture1D_kwrm5")
+stretch_mode = 1
+
+[node name="CharacterBody2D" parent="GameplayLayer" instance=ExtResource("1_hf1ha")]
+position = Vector2(546, 988)
+motion_mode = 1
+
+[node name="TouchLayer" type="CanvasLayer" parent="."]
+
+[node name="VirtualAnalog" type="TouchScreenButton" parent="TouchLayer" node_paths=PackedStringArray("AnalogFG")]
+position = Vector2(16, 1403)
+texture_normal = ExtResource("2_wbxth")
+script = ExtResource("3_m34ki")
+AnalogFG = NodePath("JoystickFG")
+
+[node name="JoystickFG" type="Sprite2D" parent="TouchLayer/VirtualAnalog"]
+position = Vector2(337, 356)
+texture = ExtResource("4_kwrm5")
