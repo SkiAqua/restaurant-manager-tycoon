@@ -60,8 +60,6 @@ public partial class VirtualAnalog : TouchScreenButton
 			Input.ActionPress("walk_up", -Direction.Y);
 		else
 			Input.ActionRelease("walk_up");
-
-		GD.Print(Direction);
 	}
 	private void _TestInputEventDrag(InputEvent e)
 	{
