@@ -17,9 +17,11 @@ gradient = SubResource("Gradient_m34ki")
 [node name="GameplayLayer" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="GameplayLayer"]
-offset_top = 6.0
-offset_right = 1080.0
-offset_bottom = 1926.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("GradientTexture1D_kwrm5")
 stretch_mode = 1
 
@@ -36,5 +38,5 @@ script = ExtResource("3_m34ki")
 AnalogFG = NodePath("JoystickFG")
 
 [node name="JoystickFG" type="Sprite2D" parent="TouchLayer/VirtualAnalog"]
-position = Vector2(337, 356)
+position = Vector2(254, 254)
 texture = ExtResource("4_kwrm5")
