@@ -8,6 +8,7 @@ public partial class VirtualAnalog : TouchScreenButton
 	[Export] public Sprite2D AnalogFG;
 
 	private Vector2 AnalogCenter = Vector2.Zero;
+	private int _lastTouchIndex;
 	public bool AnalogPressing = false;
 	public Vector2 Direction = Vector2.Zero;
 	public override void _UnhandledInput(InputEvent @event)
@@ -18,7 +19,7 @@ public partial class VirtualAnalog : TouchScreenButton
 
     public override void _Draw()
     {
-		DrawCircle(AnalogCenter, AnalogCenter.X, new Color(255, 0, 0), false, 3);
+		if (IsPressed()) DrawCircle(AnalogCenter, AnalogCenter.X, new Color(255, 0, 0), false, 3);
     }
 
 	public override void _Ready()
@@ -64,7 +65,7 @@ public partial class VirtualAnalog : TouchScreenButton
 	}
 	private void _TestInputEventDrag(InputEvent e)
 	{
-		if (e is InputEventScreenDrag dragEvent && AnalogPressing)
+		if (e is InputEventScreenDrag dragEvent && AnalogPressing && dragEvent.Index == _lastTouchIndex)
 		{
 			_UpdateAnalogFGPosition(dragEvent.Position);
 		}
@@ -73,15 +74,16 @@ public partial class VirtualAnalog : TouchScreenButton
 	{
 		if (e is InputEventScreenTouch touchEvent)
 		{
-			if (touchEvent.IsReleased())
+			if (touchEvent.IsReleased() && touchEvent.Index == _lastTouchIndex)
 			{
 				AnalogPressing = false;
 				Direction = Vector2.Zero;
 			}
-			else if (!touchEvent.IsReleased() && new Rect2(Position, TextureNormal.GetSize()).HasPoint(touchEvent.Position))
+			else if (touchEvent.IsPressed() && new Rect2(Position, TextureNormal.GetSize()).HasPoint(touchEvent.Position))
 			{
 				_UpdateAnalogFGPosition(touchEvent.Position);
 				AnalogPressing = true;
+				_lastTouchIndex = touchEvent.Index;
 			}
 		}
 	}
