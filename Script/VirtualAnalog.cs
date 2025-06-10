@@ -3,6 +3,8 @@ using System;
 
 public partial class VirtualAnalog : TouchScreenButton
 {
+	private GodotObject GlobalScript;
+
 	private const float DEADZONE = .05f;
 
 	[Export] public Sprite2D AnalogFG;
@@ -24,8 +26,16 @@ public partial class VirtualAnalog : TouchScreenButton
 
 	public override void _Ready()
 	{
+		GlobalScript = GetNode<Node>("/root/GlobalScript");
+
 		AnalogCenter = TextureNormal.GetSize() / 2;
 		AnalogFG.Position = AnalogCenter;
+
+		if (OS.GetName() == "Windows" && !(bool) GlobalScript.Get("DEBUG_MODE"))
+		{
+			SetPhysicsProcess(false);
+			Visible = false;
+		}
 	}
 	public override void _PhysicsProcess(double delta)
 	{
