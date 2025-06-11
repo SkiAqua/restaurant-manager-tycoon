@@ -8,21 +8,22 @@ public partial class VirtualAnalog : TouchScreenButton
 	private const float DEADZONE = .05f;
 
 	[Export] public Sprite2D AnalogFG;
-
+	[Export] public Vector2 ScreenOffset = Vector2.Zero;
 	private Vector2 AnalogCenter = Vector2.Zero;
 	private int _lastTouchIndex;
 	public bool AnalogPressing = false;
 	public Vector2 Direction = Vector2.Zero;
+
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		_TestInputEventDrag(@event);
 		_TestInputEventTouch(@event);
 	}
 
-    public override void _Draw()
-    {
+	public override void _Draw()
+	{
 		if (IsPressed()) DrawCircle(AnalogCenter, AnalogCenter.X, new Color(255, 0, 0), false, 3);
-    }
+	}
 
 	public override void _Ready()
 	{
@@ -31,7 +32,11 @@ public partial class VirtualAnalog : TouchScreenButton
 		AnalogCenter = TextureNormal.GetSize() / 2;
 		AnalogFG.Position = AnalogCenter;
 
-		if (OS.GetName() == "Windows" && !(bool) GlobalScript.Get("DEBUG_MODE"))
+		GetViewport().SizeChanged += _whenScreenSizeIsChanged;
+
+		_whenScreenSizeIsChanged();
+
+		if (OS.GetName() == "Windows" && !(bool)GlobalScript.Get("DEBUG_MODE"))
 		{
 			SetPhysicsProcess(false);
 			Visible = false;
@@ -39,13 +44,15 @@ public partial class VirtualAnalog : TouchScreenButton
 	}
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!AnalogFG.Position.Equals(AnalogCenter) && !AnalogPressing)
+		if (!AnalogFG.Position.Equals(AnalogCenter))
 		{
-			AnalogFG.Position = AnalogFG.Position.MoveToward(AnalogCenter, (float)delta * 2000);
+			if (!AnalogPressing)
+				AnalogFG.Position = AnalogFG.Position.MoveToward(AnalogCenter, (float)delta * 2000);
+			QueueRedraw();
+			_PressInputAction();
 		}
-
-		_PressInputAction();
-		QueueRedraw();
+		
+		
 	}
 
 	private void _PressInputAction()
@@ -98,22 +105,27 @@ public partial class VirtualAnalog : TouchScreenButton
 
 	private void _UpdateAnalogFGPosition(Vector2 newFGPos)
 	{
-			Vector2 relativeToCenterEventPosition = newFGPos - Position - AnalogCenter;
+		Vector2 relativeToCenterEventPosition = newFGPos - Position - AnalogCenter;
 
-			Direction = relativeToCenterEventPosition.Normalized();
-			float analogLenght = relativeToCenterEventPosition.Length() / (AnalogCenter.X);
+		Direction = relativeToCenterEventPosition.Normalized();
+		float analogLenght = relativeToCenterEventPosition.Length() / (AnalogCenter.X);
 
-			AnalogFG.Position = relativeToCenterEventPosition + AnalogCenter;
+		AnalogFG.Position = relativeToCenterEventPosition + AnalogCenter;
 
-			if (analogLenght > 1f)
-			{
-				AnalogFG.Position = AnalogCenter + Direction * AnalogCenter;
-			}
+		if (analogLenght > 1f)
+		{
+			AnalogFG.Position = AnalogCenter + Direction * AnalogCenter;
+		}
 
-			Direction = Direction * Mathf.Clamp(analogLenght, 0, 1);
+		Direction *= Mathf.Clamp(analogLenght, 0, 1);
 	}
 	private Vector2 GetCenteredFGPosition()
 	{
 		return AnalogFG.Position - TextureNormal.GetSize() / 2;
+	}
+
+	private void _whenScreenSizeIsChanged()
+	{
+		Position = new Vector2(ScreenOffset.X, GetViewport().GetVisibleRect().Size.Y - TextureNormal.GetSize().Y - ScreenOffset.Y);
 	}
 }

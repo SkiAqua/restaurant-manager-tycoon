@@ -42,13 +42,16 @@ tile_set = SubResource("TileSet_rlidi")
 position = Vector2(546, 988)
 motion_mode = 1
 
+[node name="ObjectSelectionGrid" type="Node" parent="GameplayLayer"]
+
 [node name="TouchLayer" type="CanvasLayer" parent="."]
 
 [node name="VirtualAnalog" type="TouchScreenButton" parent="TouchLayer" node_paths=PackedStringArray("AnalogFG")]
-position = Vector2(16, 1403)
+position = Vector2(-418, 1276)
 texture_normal = ExtResource("2_wbxth")
 script = ExtResource("3_m34ki")
 AnalogFG = NodePath("JoystickFG")
+ScreenOffset = Vector2(35, 35)
 
 [node name="JoystickFG" type="Sprite2D" parent="TouchLayer/VirtualAnalog"]
 self_modulate = Color(0.682353, 1, 1, 1)
