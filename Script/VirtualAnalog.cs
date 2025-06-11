@@ -36,7 +36,7 @@ public partial class VirtualAnalog : TouchScreenButton
 
 		_whenScreenSizeIsChanged();
 
-		if (OS.GetName() == "Windows" && !(bool)GlobalScript.Get("DEBUG_MODE"))
+		if (OS.GetName() == "Windows" && (bool)GlobalScript.Get("DEBUG_MODE"))
 		{
 			SetPhysicsProcess(false);
 			Visible = false;
