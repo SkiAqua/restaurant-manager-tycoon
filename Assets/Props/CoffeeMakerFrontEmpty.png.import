@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4j2bb3p0m0bl"
-path="res://.godot/imported/cafe.png-1c113b160225d204582ff096f3ac3d4d.ctex"
+uid="uid://da450jiosa2t1"
+path="res://.godot/imported/CoffeeMakerFrontEmpty.png-bb9787b911264df0a42388069366ef8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Props/cafe.png"
-dest_files=["res://.godot/imported/cafe.png-1c113b160225d204582ff096f3ac3d4d.ctex"]
+source_file="res://Assets/Props/CoffeeMakerFrontEmpty.png"
+dest_files=["res://.godot/imported/CoffeeMakerFrontEmpty.png-bb9787b911264df0a42388069366ef8a.ctex"]
 
 [params]
 

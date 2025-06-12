@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddwfwu2cc76nc"]
+[gd_scene load_steps=16 format=3 uid="uid://ddwfwu2cc76nc"]
 
 [ext_resource type="Script" uid="uid://buf6n202384w8" path="res://Script/PropModule.cs" id="1_j8wp8"]
-[ext_resource type="Texture2D" uid="uid://b4j2bb3p0m0bl" path="res://Assets/Props/cafe.png" id="2_6y64u"]
+[ext_resource type="Texture2D" uid="uid://b4j2bb3p0m0bl" path="res://Assets/Props/CoffeeMakerFront.png" id="2_6y64u"]
 [ext_resource type="Texture2D" uid="uid://bpfic74epl63p" path="res://Assets/Props/cup of coffee.png" id="2_8ya5l"]
 [ext_resource type="PackedScene" uid="uid://ci7u8i47vcgk6" path="res://Scenes/props/default_progress_bar.tscn" id="3_6y64u"]
 [ext_resource type="Script" uid="uid://w6xf17n42m5x" path="res://Script/Interactions/DispenserInteraction.cs" id="3_40hkl"]
+[ext_resource type="Texture2D" uid="uid://bycdxsu5v4tn1" path="res://Assets/Props/CoffeeMakerBack.png" id="4_b84e4"]
+[ext_resource type="Texture2D" uid="uid://da450jiosa2t1" path="res://Assets/Props/CoffeeMakerFrontEmpty.png" id="4_kl7rr"]
+[ext_resource type="Texture2D" uid="uid://c0dwixhbelxon" path="res://Assets/Props/CoffeeMakerSideEmpty.png" id="7_fo3jm"]
+[ext_resource type="Texture2D" uid="uid://cy77ppv1qdlsk" path="res://Assets/Props/CoffeeMakerSide.png" id="8_s85xv"]
 
 [sub_resource type="Resource" id="Resource_8ya5l"]
 script = ExtResource("3_40hkl")
@@ -13,17 +17,96 @@ SmallItemID = 0
 SmallItemTexture = ExtResource("2_8ya5l")
 metadata/_custom_type_script = "uid://w6xf17n42m5x"
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_gh6ry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_b84e4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_b84e4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_whvxw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kl7rr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6y64u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4c00j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fo3jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_s85xv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hf7sa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fo3jm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_s85xv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wp8"]
 size = Vector2(90, 90)
 
-[node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("GraphicNode")]
+[node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
 script = ExtResource("1_j8wp8")
 Interaction = SubResource("Resource_8ya5l")
-GraphicNode = NodePath("Gfx")
+StartingDirection = 2
+UpGraphicNode = NodePath("Gfx/UpSprites")
+DownGraphicNode = NodePath("Gfx/DownSprites")
+LeftGraphicNode = NodePath("Gfx/LeftSprites")
+RightGraphicNode = NodePath("Gfx/RightSprites")
 
-[node name="Gfx" type="Sprite2D" parent="."]
+[node name="Gfx" type="Node2D" parent="."]
 position = Vector2(0, -25)
-texture = ExtResource("2_6y64u")
+
+[node name="UpSprites" type="AnimatedSprite2D" parent="Gfx"]
+visible = false
+position = Vector2(0, 25)
+sprite_frames = SubResource("SpriteFrames_gh6ry")
+
+[node name="DownSprites" type="AnimatedSprite2D" parent="Gfx"]
+visible = false
+position = Vector2(0, 25)
+sprite_frames = SubResource("SpriteFrames_whvxw")
+
+[node name="LeftSprites" type="AnimatedSprite2D" parent="Gfx"]
+position = Vector2(0, 25)
+scale = Vector2(-1.29451, 1.29451)
+sprite_frames = SubResource("SpriteFrames_4c00j")
+
+[node name="RightSprites" type="AnimatedSprite2D" parent="Gfx"]
+visible = false
+position = Vector2(0, 25)
+sprite_frames = SubResource("SpriteFrames_hf7sa")
 
 [node name="InteractiveArea" type="Area2D" parent="."]
 
