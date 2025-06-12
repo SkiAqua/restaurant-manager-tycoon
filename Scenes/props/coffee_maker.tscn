@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddwfwu2cc76nc"]
+
+[ext_resource type="Script" uid="uid://buf6n202384w8" path="res://Script/PropModule.cs" id="1_j8wp8"]
+[ext_resource type="Texture2D" uid="uid://b4j2bb3p0m0bl" path="res://Assets/Props/cafe.png" id="2_6y64u"]
+[ext_resource type="Texture2D" uid="uid://bpfic74epl63p" path="res://Assets/Props/cup of coffee.png" id="2_8ya5l"]
+[ext_resource type="PackedScene" uid="uid://ci7u8i47vcgk6" path="res://Scenes/props/default_progress_bar.tscn" id="3_6y64u"]
+[ext_resource type="Script" uid="uid://w6xf17n42m5x" path="res://Script/Interactions/DispenserInteraction.cs" id="3_40hkl"]
+
+[sub_resource type="Resource" id="Resource_8ya5l"]
+script = ExtResource("3_40hkl")
+SmallItemName = "Café"
+SmallItemID = 0
+SmallItemTexture = ExtResource("2_8ya5l")
+metadata/_custom_type_script = "uid://w6xf17n42m5x"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wp8"]
+size = Vector2(90, 90)
+
+[node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("GraphicNode")]
+script = ExtResource("1_j8wp8")
+Interaction = SubResource("Resource_8ya5l")
+GraphicNode = NodePath("Gfx")
+
+[node name="Gfx" type="Sprite2D" parent="."]
+position = Vector2(0, -25)
+texture = ExtResource("2_6y64u")
+
+[node name="InteractiveArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="InteractiveArea"]
+shape = SubResource("RectangleShape2D_j8wp8")
+
+[node name="ProgressBar" parent="." instance=ExtResource("3_6y64u")]
+visible = false
+anchors_preset = 0
+value = 0.0

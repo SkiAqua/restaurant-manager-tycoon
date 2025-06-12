@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class PropModule : Node2D
 {
 	[Export] public Vector2 Size = Vector2.Zero;
@@ -13,12 +14,12 @@ public partial class PropModule : Node2D
 	{
 		if (Interaction == null)
 		{
-			GD.PrintErr("Interactive Porps must have an interaction resource");
+			GD.PrintErr("Interactive Props must have an interaction resource");
 		}
 
 	}
-	public void Interact()
+	public void Interact(PlayerCharacter player)
 	{
-		Interaction.OnInteraction();
+		Interaction.OnInteraction(player);
 	}
 }

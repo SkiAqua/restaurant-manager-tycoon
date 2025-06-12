@@ -1,29 +1,89 @@
 using Godot;
+using Microsoft.VisualBasic;
 using System;
 
 public partial class PlayerCharacter : CharacterBody2D
 {
+	private int? _holdingItemID;
+	private String? _holdingItemName;
+
 	public const float Speed = 600.0f;
 
 
+	[Export] Node2D GraphicNode;
+	[Export] Sprite2D HoldingItemSprite;
+	[Export] Area2D InteractionArea;
+
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 velocity = Velocity;
+		_movementUpdate(delta);
+		_interactionUpdate();
+		_throwAwayItemUpdate();
+	}
 
+	public void GiveItem(int newItemID, Texture2D newItemTexture, String newItemName)
+	{
+		if (!IsHoldingItem())
+		{
+			_holdingItemID = newItemID;
+			HoldingItemSprite.Texture = newItemTexture;
+			_holdingItemName = newItemName;
+		}
+	}
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
+	public bool IsHoldingItem()
+	{
+		if (_holdingItemID.Equals(null) || HoldingItemSprite.Texture == null)
+			return false;
+
+		return true;
+	}
+
+	private void _movementUpdate(double delta)
+	{
+
 		Vector2 direction = Input.GetVector("walk_left", "walk_right", "walk_up", "walk_down");
 		if (direction != Vector2.Zero)
 		{
-			velocity = direction * Speed;
+			Velocity = direction * Speed;
 		}
 		else
 		{
-			velocity = Vector2.Zero;
+			Velocity = Vector2.Zero;
 		}
 
-		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void _interactionUpdate()
+	{
+		if (!Input.IsActionJustPressed("action_perform") || !InteractionArea.HasOverlappingAreas())
+			return;
+
+		Area2D closerArea = InteractionArea.GetOverlappingAreas()[0];
+
+		if (InteractionArea.GetOverlappingAreas().Count > 1)
+		{
+			foreach (Area2D area in InteractionArea.GetOverlappingAreas())
+			{
+				if (area.Position.DistanceTo(Position) < closerArea.Position.DistanceTo(Position))
+				{
+					closerArea = area;
+				}
+			}
+		}
+
+		closerArea.Owner.Call("Interact", this);
+	}
+
+	private void _throwAwayItemUpdate()
+	{
+		if (!IsHoldingItem())
+			return;
+		if (Input.IsActionJustPressed("action_cancel"))
+		{
+			_holdingItemID = null;
+			HoldingItemSprite.Texture = null;
+		}
 	}
 }

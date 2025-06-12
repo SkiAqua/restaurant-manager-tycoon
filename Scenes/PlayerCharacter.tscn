@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccx185dyicsix"]
+[gd_scene load_steps=5 format=3 uid="uid://ccx185dyicsix"]
 
 [ext_resource type="Script" uid="uid://cqgb83nwb0wvu" path="res://Script/PlayerCharacter.cs" id="1_v7sut"]
 [ext_resource type="Texture2D" uid="uid://rn118yq4v4ua" path="res://Assets/characterPlaceHolder.png" id="2_5gnj7"]
@@ -6,9 +6,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gnj7"]
 size = Vector2(90, 276)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2getf"]
+size = Vector2(182, 212)
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("GraphicNode", "HoldingItemSprite", "InteractionArea")]
 collision_mask = 4
 script = ExtResource("1_v7sut")
+GraphicNode = NodePath("Graphics")
+HoldingItemSprite = NodePath("Graphics/HoldingItemSprite")
+InteractionArea = NodePath("InteractionArea")
 
 [node name="Graphics" type="Node2D" parent="."]
 
@@ -16,8 +22,18 @@ script = ExtResource("1_v7sut")
 scale = Vector2(5.11256, 5.11256)
 texture = ExtResource("2_5gnj7")
 
+[node name="HoldingItemSprite" type="Sprite2D" parent="Graphics"]
+position = Vector2(62, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5gnj7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.185, 1.185)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="InteractionArea"]
+modulate = Color(1, 1, 1, 0.356863)
+position = Vector2(0, 74)
+shape = SubResource("RectangleShape2D_2getf")
