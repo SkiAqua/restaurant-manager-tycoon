@@ -60,11 +60,13 @@ public partial class PlayerCharacter : CharacterBody2D
 		if (!Input.IsActionJustPressed("action_perform") || !InteractionArea.HasOverlappingAreas())
 			return;
 
-		Area2D closerArea = InteractionArea.GetOverlappingAreas()[0];
+		var overlappingAreas = InteractionArea.GetOverlappingAreas();
 
-		if (InteractionArea.GetOverlappingAreas().Count > 1)
+		Area2D closerArea =overlappingAreas[0];
+
+		if (overlappingAreas.Count > 1)
 		{
-			foreach (Area2D area in InteractionArea.GetOverlappingAreas())
+			foreach (Area2D area in overlappingAreas)
 			{
 				if (area.Position.DistanceTo(Position) < closerArea.Position.DistanceTo(Position))
 				{
@@ -73,6 +75,7 @@ public partial class PlayerCharacter : CharacterBody2D
 			}
 		}
 
+		GD.Print(closerArea.GetOwner().Name);
 		closerArea.Owner.Call("Interact", this);
 	}
 

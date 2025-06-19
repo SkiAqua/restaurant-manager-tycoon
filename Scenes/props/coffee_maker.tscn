@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c0dwixhbelxon" path="res://Assets/Props/CoffeeMakerSideEmpty.png" id="7_fo3jm"]
 [ext_resource type="Texture2D" uid="uid://cy77ppv1qdlsk" path="res://Assets/Props/CoffeeMakerSide.png" id="8_s85xv"]
 
-[sub_resource type="Resource" id="Resource_8ya5l"]
+[sub_resource type="Resource" id="Resource_b84e4"]
 script = ExtResource("3_40hkl")
 SmallItemName = "Café"
 SmallItemID = 0
@@ -78,7 +78,7 @@ size = Vector2(90, 90)
 
 [node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
 script = ExtResource("1_j8wp8")
-Interaction = SubResource("Resource_8ya5l")
+Interaction = SubResource("Resource_b84e4")
 StartingDirection = 2
 UpGraphicNode = NodePath("Gfx/UpSprites")
 DownGraphicNode = NodePath("Gfx/DownSprites")

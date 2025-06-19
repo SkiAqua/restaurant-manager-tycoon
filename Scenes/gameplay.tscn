@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=4 uid="uid://bkhc6lyj28x05"]
+[gd_scene load_steps=13 format=4 uid="uid://bkhc6lyj28x05"]
 
 [ext_resource type="PackedScene" uid="uid://ccx185dyicsix" path="res://Scenes/PlayerCharacter.tscn" id="1_hf1ha"]
 [ext_resource type="Texture2D" uid="uid://2kh5bfb18m2e" path="res://Assets/building/wooden_floor.png" id="1_r8bcl"]
 [ext_resource type="Texture2D" uid="uid://bqgmxn5gjw153" path="res://Assets/TouchScreen/analogBG.png" id="2_wbxth"]
 [ext_resource type="Script" uid="uid://c5sru7oxluxy7" path="res://Script/VirtualAnalog.cs" id="3_m34ki"]
 [ext_resource type="PackedScene" uid="uid://ddwfwu2cc76nc" path="res://Scenes/props/coffee_maker.tscn" id="3_rlidi"]
+[ext_resource type="Texture2D" uid="uid://bpfic74epl63p" path="res://Assets/Props/cup of coffee.png" id="3_urrcd"]
 [ext_resource type="Texture2D" uid="uid://bkvqsaoglk5x5" path="res://Assets/TouchScreen/analogFG.png" id="4_kwrm5"]
+[ext_resource type="Script" uid="uid://w6xf17n42m5x" path="res://Script/Interactions/DispenserInteraction.cs" id="4_puebw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r8bcl"]
 texture = ExtResource("1_r8bcl")
@@ -28,6 +30,20 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_r8bcl")
 
+[sub_resource type="Resource" id="Resource_5h7oy"]
+script = ExtResource("4_puebw")
+SmallItemName = "Café"
+SmallItemID = 0
+SmallItemTexture = ExtResource("3_urrcd")
+metadata/_custom_type_script = "uid://w6xf17n42m5x"
+
+[sub_resource type="Resource" id="Resource_ltefv"]
+script = ExtResource("4_puebw")
+SmallItemName = "Café"
+SmallItemID = 0
+SmallItemTexture = ExtResource("3_urrcd")
+metadata/_custom_type_script = "uid://w6xf17n42m5x"
+
 [node name="Scene" type="Node2D"]
 
 [node name="GameplayLayer" type="CanvasLayer" parent="."]
@@ -40,7 +56,12 @@ tile_map_data = PackedByteArray("AAAAAAYAAQABAAAAAAAAAAcAAQABAAAAAAAAAAgAAQABAAA
 tile_set = SubResource("TileSet_rlidi")
 
 [node name="Coffee Maker" parent="GameplayLayer" instance=ExtResource("3_rlidi")]
-position = Vector2(689, 257)
+position = Vector2(635, 454)
+Interaction = SubResource("Resource_5h7oy")
+
+[node name="Coffee Maker2" parent="GameplayLayer" instance=ExtResource("3_rlidi")]
+position = Vector2(416, 454)
+Interaction = SubResource("Resource_ltefv")
 
 [node name="CharacterBody2D" parent="GameplayLayer" instance=ExtResource("1_hf1ha")]
 position = Vector2(546, 988)
