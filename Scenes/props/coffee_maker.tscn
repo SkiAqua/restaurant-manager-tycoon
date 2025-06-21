@@ -12,7 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_b84e4"]
 script = ExtResource("3_40hkl")
-SmallItemName = "Café"
+SmallItemName = "Coffee"
 SmallItemID = 0
 SmallItemTexture = ExtResource("2_8ya5l")
 metadata/_custom_type_script = "uid://w6xf17n42m5x"
@@ -74,12 +74,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wp8"]
-size = Vector2(90, 90)
+size = Vector2(247, 248)
 
 [node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
 script = ExtResource("1_j8wp8")
 Interaction = SubResource("Resource_b84e4")
-StartingDirection = 2
+StartingDirection = 1
 UpGraphicNode = NodePath("Gfx/UpSprites")
 DownGraphicNode = NodePath("Gfx/DownSprites")
 LeftGraphicNode = NodePath("Gfx/LeftSprites")
@@ -111,6 +111,8 @@ sprite_frames = SubResource("SpriteFrames_hf7sa")
 [node name="InteractiveArea" type="Area2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="InteractiveArea"]
+y_sort_enabled = true
+position = Vector2(0.5, 30)
 shape = SubResource("RectangleShape2D_j8wp8")
 
 [node name="ProgressBar" parent="." instance=ExtResource("3_6y64u")]

@@ -4,12 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://rn118yq4v4ua" path="res://Assets/characterPlaceHolder.png" id="2_5gnj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gnj7"]
-size = Vector2(90, 276)
+size = Vector2(32, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2getf"]
-size = Vector2(262, 212)
+size = Vector2(48, 46)
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("GraphicNode", "HoldingItemSprite", "InteractionArea")]
+y_sort_enabled = true
 collision_mask = 4
 script = ExtResource("1_v7sut")
 GraphicNode = NodePath("Graphics")
@@ -19,21 +20,23 @@ InteractionArea = NodePath("InteractionArea")
 [node name="Graphics" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="Graphics"]
-scale = Vector2(5.11256, 5.11256)
+scale = Vector2(2.238, 2.238)
 texture = ExtResource("2_5gnj7")
 
 [node name="HoldingItemSprite" type="Sprite2D" parent="Graphics"]
 position = Vector2(62, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 49)
 shape = SubResource("RectangleShape2D_5gnj7")
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(1.34, 1.34)
+zoom = Vector2(2.445, 2.445)
+position_smoothing_enabled = true
 
 [node name="InteractionArea" type="Area2D" parent="."]
 
 [node name="Collision" type="CollisionShape2D" parent="InteractionArea"]
 modulate = Color(1, 1, 1, 0.356863)
-position = Vector2(0, 74)
+position = Vector2(0, 61)
 shape = SubResource("RectangleShape2D_2getf")

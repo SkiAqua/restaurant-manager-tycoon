@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdu55feq6tktu"]
+
+[ext_resource type="Script" uid="uid://buf6n202384w8" path="res://Script/PropModule.cs" id="1_7ohja"]
+[ext_resource type="Texture2D" uid="uid://bqfvr67rsmjyj" path="res://Assets/Props/first-bench-back.png" id="2_rq7i8"]
+[ext_resource type="Texture2D" uid="uid://dd6pp5ul2ffso" path="res://Assets/Props/first-bench-front.png" id="3_d6c8a"]
+[ext_resource type="Texture2D" uid="uid://x8818q7u35jj" path="res://Assets/Props/first-bench-side.png" id="4_g12id"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ohja"]
+size = Vector2(126, 91)
+
+[node name="FirstBench" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
+y_sort_enabled = true
+script = ExtResource("1_7ohja")
+StartingDirection = 1
+UpGraphicNode = NodePath("Gfx/UpSprite")
+DownGraphicNode = NodePath("Gfx/DownSprite")
+LeftGraphicNode = NodePath("Gfx/LeftSprite")
+RightGraphicNode = NodePath("Gfx/RightSprite")
+CanPlaceProp = true
+
+[node name="Gfx" type="Node2D" parent="."]
+
+[node name="UpSprite" type="Sprite2D" parent="Gfx"]
+visible = false
+texture = ExtResource("2_rq7i8")
+
+[node name="DownSprite" type="Sprite2D" parent="Gfx"]
+texture = ExtResource("3_d6c8a")
+
+[node name="LeftSprite" type="Sprite2D" parent="Gfx"]
+visible = false
+scale = Vector2(-1, 1)
+texture = ExtResource("4_g12id")
+
+[node name="RightSprite" type="Sprite2D" parent="Gfx"]
+visible = false
+texture = ExtResource("4_g12id")
+
+[node name="Body" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="Collision" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, 17.5)
+shape = SubResource("RectangleShape2D_7ohja")
