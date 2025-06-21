@@ -75,7 +75,6 @@ public partial class PlayerCharacter : CharacterBody2D
 			}
 		}
 
-		GD.Print(closerArea.GetOwner().Name);
 		closerArea.Owner.Call("Interact", this);
 	}
 

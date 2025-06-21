@@ -20,6 +20,7 @@ public partial class PropModule : Node2D
 	[Export] public Node2D LeftGraphicNode;
 	[Export] public Node2D RightGraphicNode;
 
+	[Export] public bool CanPlaceProp = false;
 	public Node2D CurrentGraphicNode;
 
 	public Direction direction;
@@ -36,14 +37,16 @@ public partial class PropModule : Node2D
 	{
 		Interaction.OnInteraction(player);
 	}
-
 	public void SetModuleRotation(Direction newDir)
 	{
 		Node2D[] dirNodes = [UpGraphicNode, DownGraphicNode, LeftGraphicNode, RightGraphicNode];
 		Node2D visibleNode = dirNodes[0];
 		for (int i = 0; i < 4; i++)
 		{
+			if (dirNodes[i] == null) continue;
+			
 			dirNodes[i].Visible = false;
+			
 
 			if (i == (int)newDir)
 				visibleNode = dirNodes[i];
@@ -51,7 +54,7 @@ public partial class PropModule : Node2D
 
 		CurrentGraphicNode = visibleNode;
 		CurrentGraphicNode.Visible = true;
-		
+
 		_crushTweenInitialPosition = CurrentGraphicNode.Position;
 		_crushTweenInitialScale = CurrentGraphicNode.Scale;
 	}
