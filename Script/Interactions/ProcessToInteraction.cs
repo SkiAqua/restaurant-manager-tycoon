@@ -38,6 +38,7 @@ public partial class ProcessToInteraction : BaseInteraction
                 if (!playerTarget.GiveItem(SmallItemOutID, SmallItemOutTexture, SmallItemOutName))
                     return;
                 MyOwner.PlayCrushingTweenAnimation();
+                _processState = ProcessState.FREE;
                 break;
         }
     }
