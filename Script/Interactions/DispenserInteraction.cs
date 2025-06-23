@@ -11,7 +11,8 @@ public partial class DispenserInteraction : BaseInteraction
 
     public override void OnInteraction(PlayerCharacter _playerTarget)
     {
-        _playerTarget.GiveItem(SmallItemID, SmallItemTexture, SmallItemName);
+        if (!_playerTarget.GiveItem(SmallItemID, SmallItemTexture, SmallItemName))
+            return;
         MyOwner.PlayCrushingTweenAnimation();
     }
 }

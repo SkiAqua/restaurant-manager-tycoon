@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=4 uid="uid://bkhc6lyj28x05"]
+[gd_scene load_steps=14 format=4 uid="uid://bkhc6lyj28x05"]
 
 [ext_resource type="PackedScene" uid="uid://ccx185dyicsix" path="res://Scenes/PlayerCharacter.tscn" id="1_hf1ha"]
 [ext_resource type="Texture2D" uid="uid://2kh5bfb18m2e" path="res://Assets/building/wooden_floor.png" id="1_r8bcl"]
-[ext_resource type="PackedScene" uid="uid://bdu55feq6tktu" path="res://Scenes/props/first_bench.tscn" id="2_puebw"]
 [ext_resource type="Texture2D" uid="uid://bqgmxn5gjw153" path="res://Assets/TouchScreen/analogBG.png" id="2_wbxth"]
+[ext_resource type="PackedScene" uid="uid://dcdtryhd44ta6" path="res://Scenes/props/coffee_pot.tscn" id="3_1qnfl"]
 [ext_resource type="Script" uid="uid://c5sru7oxluxy7" path="res://Script/VirtualAnalog.cs" id="3_m34ki"]
+[ext_resource type="Texture2D" uid="uid://byrmkarajsddj" path="res://Assets/Props/coffee capsule.png" id="3_puebw"]
 [ext_resource type="PackedScene" uid="uid://ddwfwu2cc76nc" path="res://Scenes/props/coffee_maker.tscn" id="3_rlidi"]
+[ext_resource type="Script" uid="uid://w6xf17n42m5x" path="res://Script/Interactions/DispenserInteraction.cs" id="4_5h7oy"]
 [ext_resource type="Texture2D" uid="uid://bkvqsaoglk5x5" path="res://Assets/TouchScreen/analogFG.png" id="4_kwrm5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r8bcl"]
@@ -29,6 +31,20 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_r8bcl")
 
+[sub_resource type="Resource" id="Resource_ltefv"]
+script = ExtResource("4_5h7oy")
+SmallItemName = "Coffee"
+SmallItemID = 0
+SmallItemTexture = ExtResource("3_puebw")
+metadata/_custom_type_script = "uid://w6xf17n42m5x"
+
+[sub_resource type="Resource" id="Resource_rg35f"]
+script = ExtResource("4_5h7oy")
+SmallItemName = "Coffee"
+SmallItemID = 0
+SmallItemTexture = ExtResource("3_puebw")
+metadata/_custom_type_script = "uid://w6xf17n42m5x"
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 
@@ -46,13 +62,16 @@ tile_set = SubResource("TileSet_rlidi")
 [node name="Stage" type="Node2D" parent="GameplayLayer"]
 y_sort_enabled = true
 
-[node name="FirstBench" parent="GameplayLayer/Stage" instance=ExtResource("2_puebw")]
-position = Vector2(673, 461)
+[node name="Coffee Pot" parent="GameplayLayer/Stage" instance=ExtResource("3_1qnfl")]
+position = Vector2(205, 600)
+Interaction = SubResource("Resource_ltefv")
 
-[node name="Coffee Maker" parent="GameplayLayer/Stage/FirstBench" instance=ExtResource("3_rlidi")]
+[node name="Coffee Pot2" parent="GameplayLayer/Stage" instance=ExtResource("3_1qnfl")]
+position = Vector2(318, 599)
+Interaction = SubResource("Resource_rg35f")
 
-[node name="Gfx" parent="GameplayLayer/Stage/FirstBench/Coffee Maker" index="0"]
-position = Vector2(0, -73)
+[node name="Coffee Maker" parent="GameplayLayer/Stage" instance=ExtResource("3_rlidi")]
+position = Vector2(756, 589)
 
 [node name="CharacterBody2D" parent="GameplayLayer/Stage" instance=ExtResource("1_hf1ha")]
 position = Vector2(546, 988)
@@ -71,5 +90,3 @@ ScreenOffset = Vector2(35, 35)
 self_modulate = Color(0.682353, 1, 1, 1)
 position = Vector2(254, 254)
 texture = ExtResource("4_kwrm5")
-
-[editable path="GameplayLayer/Stage/FirstBench/Coffee Maker"]

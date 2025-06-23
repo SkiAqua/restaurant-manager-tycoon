@@ -2,20 +2,22 @@
 
 [ext_resource type="Script" uid="uid://buf6n202384w8" path="res://Script/PropModule.cs" id="1_j8wp8"]
 [ext_resource type="Texture2D" uid="uid://b4j2bb3p0m0bl" path="res://Assets/Props/CoffeeMakerFront.png" id="2_6y64u"]
-[ext_resource type="Texture2D" uid="uid://bpfic74epl63p" path="res://Assets/Props/cup of coffee.png" id="2_8ya5l"]
+[ext_resource type="Texture2D" uid="uid://rn118yq4v4ua" path="res://Assets/characterPlaceHolder.png" id="2_b84e4"]
 [ext_resource type="PackedScene" uid="uid://ci7u8i47vcgk6" path="res://Scenes/props/default_progress_bar.tscn" id="3_6y64u"]
-[ext_resource type="Script" uid="uid://w6xf17n42m5x" path="res://Script/Interactions/DispenserInteraction.cs" id="3_40hkl"]
+[ext_resource type="Script" uid="uid://bhpwsulo83fle" path="res://Script/Interactions/ProcessToInteraction.cs" id="3_fo3jm"]
 [ext_resource type="Texture2D" uid="uid://bycdxsu5v4tn1" path="res://Assets/Props/CoffeeMakerBack.png" id="4_b84e4"]
 [ext_resource type="Texture2D" uid="uid://da450jiosa2t1" path="res://Assets/Props/CoffeeMakerFrontEmpty.png" id="4_kl7rr"]
 [ext_resource type="Texture2D" uid="uid://c0dwixhbelxon" path="res://Assets/Props/CoffeeMakerSideEmpty.png" id="7_fo3jm"]
 [ext_resource type="Texture2D" uid="uid://cy77ppv1qdlsk" path="res://Assets/Props/CoffeeMakerSide.png" id="8_s85xv"]
 
-[sub_resource type="Resource" id="Resource_b84e4"]
-script = ExtResource("3_40hkl")
-SmallItemName = "Coffee"
-SmallItemID = 0
-SmallItemTexture = ExtResource("2_8ya5l")
-metadata/_custom_type_script = "uid://w6xf17n42m5x"
+[sub_resource type="Resource" id="Resource_s85xv"]
+script = ExtResource("3_fo3jm")
+SmallItemInID = 0
+SmallItemOutName = "Coffee Cup"
+SmallItemOutID = 1
+SmallItemOutTexture = ExtResource("2_b84e4")
+ProcessWaitTime = 5.0
+metadata/_custom_type_script = "uid://bhpwsulo83fle"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gh6ry"]
 animations = [{
@@ -78,7 +80,7 @@ size = Vector2(247, 248)
 
 [node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
 script = ExtResource("1_j8wp8")
-Interaction = SubResource("Resource_b84e4")
+Interaction = SubResource("Resource_s85xv")
 StartingDirection = 1
 UpGraphicNode = NodePath("Gfx/UpSprites")
 DownGraphicNode = NodePath("Gfx/DownSprites")

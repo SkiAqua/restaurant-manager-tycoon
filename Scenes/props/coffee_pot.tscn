@@ -9,14 +9,14 @@
 [sub_resource type="Resource" id="Resource_b84e4"]
 script = ExtResource("3_77cg2")
 SmallItemName = "Coffee"
-SmallItemID = 1
+SmallItemID = 0
 SmallItemTexture = ExtResource("2_xq0ot")
 metadata/_custom_type_script = "uid://w6xf17n42m5x"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j8wp8"]
 size = Vector2(247, 248)
 
-[node name="Coffee Maker" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
+[node name="Coffee Pot" type="Node2D" node_paths=PackedStringArray("UpGraphicNode", "DownGraphicNode", "LeftGraphicNode", "RightGraphicNode")]
 script = ExtResource("1_8wk81")
 Interaction = SubResource("Resource_b84e4")
 StartingDirection = 1
